@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobx/mobx.dart';
+import 'package:news_app/models/source.dart';
 
 part 'headlines.g.dart';
 
@@ -34,4 +35,7 @@ abstract class _Headlines with Store {
 
   @observable
   String content;
+
+  @observable
+  Source source;
 }

@@ -14,7 +14,10 @@ Headlines _$HeadlinesFromJson(Map<String, dynamic> json) {
     ..url = json['url'] as String
     ..urlToImage = json['urlToImage'] as String
     ..publishedAt = json['publishedAt'] as String
-    ..content = json['content'] as String;
+    ..content = json['content'] as String
+    ..source = json['source'] == null
+        ? null
+        : Source.fromJson(json['source'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$HeadlinesToJson(Headlines instance) => <String, dynamic>{
@@ -25,6 +28,7 @@ Map<String, dynamic> _$HeadlinesToJson(Headlines instance) => <String, dynamic>{
       'urlToImage': instance.urlToImage,
       'publishedAt': instance.publishedAt,
       'content': instance.content,
+      'source': instance.source,
     };
 
 // **************************************************************************
@@ -151,5 +155,22 @@ mixin _$Headlines on _Headlines, Store {
       super.content = value;
       _$contentAtom.reportChanged();
     }, _$contentAtom, name: '${_$contentAtom.name}_set');
+  }
+
+  final _$sourceAtom = Atom(name: '_Headlines.source');
+
+  @override
+  Source get source {
+    _$sourceAtom.context.enforceReadPolicy(_$sourceAtom);
+    _$sourceAtom.reportObserved();
+    return super.source;
+  }
+
+  @override
+  set source(Source value) {
+    _$sourceAtom.context.conditionallyRunInAction(() {
+      super.source = value;
+      _$sourceAtom.reportChanged();
+    }, _$sourceAtom, name: '${_$sourceAtom.name}_set');
   }
 }
