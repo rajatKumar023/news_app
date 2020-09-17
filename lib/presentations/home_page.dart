@@ -1,118 +1,166 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:news_app/presentations/customs/news_title_card.dart';
-import 'package:news_app/presentations/customs/store_observer.dart';
-import 'package:news_app/stores/headlines_store.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:news_app/presentations/news_tabs/sports_news_tab.dart';
+import 'package:news_app/presentations/news_tabs/top_headlines_tab.dart';
+import 'package:news_app/utils/styles.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 6, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    _getData(context);
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(
-          horizontal: 15.0,
-          vertical: 15.0,
-        ),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10.0,
-            ),
-            _appBar(),
-            SizedBox(
-              height: 10.0,
-            ),
-            Text(
-              'Top-Headlines',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Styles.BLACK_COLOR,
+      statusBarIconBrightness: Brightness.light,
+    ));
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Styles.BLACK_COLOR,
+          child: Column(
+            children: <Widget>[
+              _appBar(),
+              TabBar(
+                isScrollable: true,
+                controller: tabController,
+                labelStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 14,
+                ),
+                indicatorColor: Styles.GREEN_COLOR,
+                tabs: [
+                  Tab(
+                    text: 'Top-Headlines',
+                  ),
+                  Tab(
+                    text: 'Sports',
+                  ),
+                  Tab(
+                    text: 'Top-Headlines',
+                  ),
+                  Tab(
+                    text: 'Top-Headlines',
+                  ),
+                  Tab(
+                    text: 'Top-Headlines',
+                  ),
+                  Tab(
+                    text: 'Top-Headlines',
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            _searchBar(),
-            SizedBox(
-              height: 15.0,
-            ),
-            Expanded(
-              child: StoreObserver<HeadlinesStore>(
-                builder: (HeadlinesStore headlinesStore, BuildContext context) {
-                  return headlinesStore.isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.red),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: headlinesStore.topHeadlines.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                              ),
-                              child: NewsTitleCard(
-                                headline: headlinesStore.topHeadlines[index],
-                              ),
-                            );
-                          },
-                        );
-                },
+              SizedBox(
+                height: 10.0,
               ),
-            )
-          ],
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: TabBarView(
+                    controller: tabController,
+                    children: <Widget>[
+                      TopHeadlinesTab(),
+                      SportsNewsTab(),
+                      SizedBox(),
+                      SizedBox(),
+                      SizedBox(),
+                      SizedBox(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _appBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        IconButton(icon: Icon(Icons.clear_all), onPressed: () {}),
-        Text(
-          DateFormat.yMMMMd().format(DateTime.now()),
-          style: TextStyle(
-            fontSize: 16.0,
+    return Card(
+      color: Styles.BLACK_COLOR,
+      elevation: 18,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: 20.0,
+              ),
+              Text(
+                'Notify',
+                style: TextStyle(
+                  color: Styles.WHITE_COLOR,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Spacer(),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Styles.WHITE_COLOR,
+                  ),
+                  padding: EdgeInsets.all(5),
+                  child: Center(
+                    child: Icon(
+                      Icons.search,
+                      size: 20,
+                      color: Styles.BLUE_COLOR,
+                    ),
+                  ),
+                ),
+              ),
+//              SizedBox(
+//                width: 15.0,
+//              ),
+//              InkWell(
+//                onTap: () {
+//                  _getData();
+//                },
+//                child: Container(
+//                  decoration: BoxDecoration(
+//                    shape: BoxShape.circle,
+//                    color: Styles.WHITE_COLOR,
+//                  ),
+//                  padding: EdgeInsets.all(5),
+//                  child: Center(
+//                    child: Icon(
+//                      Icons.refresh,
+//                      size: 20,
+//                      color: Styles.BLUE_COLOR,
+//                    ),
+//                  ),
+//                ),
+//              ),
+              SizedBox(
+                width: 20.0,
+              ),
+            ],
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _searchBar() {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 4.0,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.2),
-        borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
-        ),
-      ),
-      child: Center(
-        child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Search for topics, sources...',
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
       ),
     );
-  }
-
-  _getData(BuildContext context) {
-    Provider.of<HeadlinesStore>(context).fetchHeadlines();
   }
 }

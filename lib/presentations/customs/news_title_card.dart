@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/headlines.dart';
+import 'package:news_app/utils/styles.dart';
 
 class NewsTitleCard extends StatelessWidget {
   NewsTitleCard({
@@ -11,23 +13,35 @@ class NewsTitleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5.0),
-      height: 120.0,
-      child: Row(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(bottom: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: ClipRRect(
+          Card(
+            elevation: 18,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
+                Radius.circular(20.0),
               ),
-              child: Container(
-                color: Colors.grey.withOpacity(0.2),
+            ),
+            margin: EdgeInsets.only(bottom: 15.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
+                color: Styles.WHITE_COLOR,
+              ),
+              constraints: BoxConstraints(minHeight: 200.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
                 child: headline.urlToImage != null
                     ? Image.network(
                         headline.urlToImage,
-                        fit: BoxFit.cover,
-                        height: 120.0,
+                        fit: BoxFit.fitWidth,
                       )
                     : Center(
                         child: Text('T'),
@@ -35,29 +49,21 @@ class NewsTitleCard extends StatelessWidget {
               ),
             ),
           ),
+          Text(
+            headline.title,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Styles.WHITE_COLOR,
+            ),
+          ),
           SizedBox(
             width: 10.0,
           ),
-          Expanded(
-            flex: 6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  headline.title,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Spacer(),
-                _titleValueRow(
-                  headline.source.name,
-                ),
-              ],
-            ),
+          _titleValueRow(
+            headline.source?.name,
           )
         ],
       ),
@@ -71,7 +77,7 @@ class NewsTitleCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Styles.GREEN_COLOR,
             ),
           )
         : SizedBox(

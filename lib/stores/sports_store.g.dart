@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'headlines_store.dart';
+part of 'sports_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'headlines_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HeadlinesStore on _HeadlinesStore, Store {
-  final _$isLoadingAtom = Atom(name: '_HeadlinesStore.isLoading');
+mixin _$SportsStore on _SportsStore, Store {
+  final _$isLoadingAtom = Atom(name: '_SportsStore.isLoading');
 
   @override
   bool get isLoading {
@@ -26,24 +26,23 @@ mixin _$HeadlinesStore on _HeadlinesStore, Store {
     }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
   }
 
-  final _$fetchHeadlinesAsyncAction = AsyncAction('fetchHeadlines');
+  final _$fetchSportsNewsAsyncAction = AsyncAction('fetchSportsNews');
 
   @override
-  Future fetchHeadlines({bool force = false}) {
-    return _$fetchHeadlinesAsyncAction
-        .run(() => super.fetchHeadlines(force: force));
+  Future fetchSportsNews({bool force = false}) {
+    return _$fetchSportsNewsAsyncAction
+        .run(() => super.fetchSportsNews(force: force));
   }
 
-  final _$_HeadlinesStoreActionController =
-      ActionController(name: '_HeadlinesStore');
+  final _$_SportsStoreActionController = ActionController(name: '_SportsStore');
 
   @override
-  dynamic fetchHeadlinesComplete(List<Headlines> headlines) {
-    final _$actionInfo = _$_HeadlinesStoreActionController.startAction();
+  dynamic fetchSportsNewsComplete(List<Headlines> headlines) {
+    final _$actionInfo = _$_SportsStoreActionController.startAction();
     try {
-      return super.fetchHeadlinesComplete(headlines);
+      return super.fetchSportsNewsComplete(headlines);
     } finally {
-      _$_HeadlinesStoreActionController.endAction(_$actionInfo);
+      _$_SportsStoreActionController.endAction(_$actionInfo);
     }
   }
 }

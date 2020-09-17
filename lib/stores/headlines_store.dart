@@ -13,12 +13,14 @@ abstract class _HeadlinesStore with Store {
   bool isLoading = false;
 
   @action
-  fetchHeadlines() async {
+  fetchHeadlines({bool force = false}) async {
     try {
-      isLoading = true;
-      List<Headlines> headlines =
-          await topHeadLinesService.getHeadlines({'country': 'in'});
-      fetchHeadlinesComplete(headlines);
+      if (topHeadlines.isEmpty || force) {
+        isLoading = true;
+        List<Headlines> headlines =
+            await topHeadLinesService.getHeadlines({'country': 'in'});
+        fetchHeadlinesComplete(headlines);
+      }
     } catch (e) {
       print('error');
       isLoading = false;
@@ -28,6 +30,7 @@ abstract class _HeadlinesStore with Store {
 
   @action
   fetchHeadlinesComplete(List<Headlines> headlines) {
+    topHeadlines.clear();
     topHeadlines.addAll(headlines);
     isLoading = false;
   }
