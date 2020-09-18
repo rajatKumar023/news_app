@@ -6,6 +6,7 @@ import 'package:news_app/stores/education_store.dart';
 import 'package:news_app/stores/entertainment_store.dart';
 import 'package:news_app/stores/headlines_store.dart';
 import 'package:news_app/stores/lifestyle_store.dart';
+import 'package:news_app/stores/search_store.dart';
 import 'package:news_app/stores/sports_store.dart';
 import 'package:news_app/stores/technology_store.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         Provider<EntertainmentStore>.value(value: EntertainmentStore()),
         Provider<LifeStyleStore>.value(value: LifeStyleStore()),
         Provider<TechnologyStore>.value(value: TechnologyStore()),
+        Provider<SearchStore>.value(value: SearchStore()),
       ],
       child: MaterialApp(
         theme: ThemeData(

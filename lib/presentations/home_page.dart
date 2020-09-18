@@ -7,6 +7,8 @@ import 'package:news_app/presentations/news_tabs/lifestyle_news_tab.dart';
 import 'package:news_app/presentations/news_tabs/sports_news_tab.dart';
 import 'package:news_app/presentations/news_tabs/technology_news_tab.dart';
 import 'package:news_app/presentations/news_tabs/top_headlines_tab.dart';
+import 'package:news_app/presentations/search/search_page.dart';
+import 'package:news_app/utils/string_value.dart';
 import 'package:news_app/utils/styles.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Styles.BLACK_COLOR,
+      statusBarColor: Styles.BLACK_COLOR.withOpacity(0.8),
       statusBarIconBrightness: Brightness.light,
     ));
     return SafeArea(
@@ -35,41 +37,38 @@ class _HomePageState extends State<HomePage>
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Styles.BLACK_COLOR,
+          color: Styles.BLACK_COLOR.withOpacity(0.8),
           child: Column(
             children: <Widget>[
-              _appBar(),
-              TabBar(
-                isScrollable: true,
-                controller: tabController,
-                labelStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Card(
+                margin: EdgeInsets.all(0),
+                color: Styles.BLACK_COLOR,
+                elevation: 18,
+                child: Column(
+                  children: <Widget>[
+                    _appBar(),
+                    TabBar(
+                      isScrollable: true,
+                      controller: tabController,
+                      labelStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                        fontSize: 14,
+                      ),
+                      indicatorColor: Styles.GREEN_COLOR,
+                      tabs: [
+                        Tab(text: StringValue.TOP_HEADLINES),
+                        Tab(text: StringValue.SPORTS),
+                        Tab(text: StringValue.EDUCATION),
+                        Tab(text: StringValue.ENTERTAINMENT),
+                        Tab(text: StringValue.TECHNOLOGY),
+                        Tab(text: StringValue.LIFESTYLE),
+                      ],
+                    ),
+                  ],
                 ),
-                unselectedLabelStyle: TextStyle(
-                  fontSize: 14,
-                ),
-                indicatorColor: Styles.GREEN_COLOR,
-                tabs: [
-                  Tab(
-                    text: 'Top-Headlines',
-                  ),
-                  Tab(
-                    text: 'Sports',
-                  ),
-                  Tab(
-                    text: 'Education',
-                  ),
-                  Tab(
-                    text: 'Entertainment',
-                  ),
-                  Tab(
-                    text: 'Technology',
-                  ),
-                  Tab(
-                    text: 'Lifestyle',
-                  ),
-                ],
               ),
               SizedBox(
                 height: 10.0,
@@ -98,73 +97,44 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _appBar() {
-    return Card(
-      color: Styles.BLACK_COLOR,
-      elevation: 18,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                width: 20.0,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5.0),
+      child: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 20.0,
+            ),
+            Text(
+              'Notify',
+              style: TextStyle(
+                color: Styles.WHITE_COLOR,
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                'Notify',
-                style: TextStyle(
-                  color: Styles.WHITE_COLOR,
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {
+                _navigateToSearchPage();
+              },
+              icon: Icon(
+                Icons.search,
+                color: Styles.WHITE_COLOR,
               ),
-              Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Styles.WHITE_COLOR,
-                  ),
-                  padding: EdgeInsets.all(5),
-                  child: Center(
-                    child: Icon(
-                      Icons.search,
-                      size: 20,
-                      color: Styles.BLUE_COLOR,
-                    ),
-                  ),
-                ),
-              ),
-//              SizedBox(
-//                width: 15.0,
-//              ),
-//              InkWell(
-//                onTap: () {
-//                  _getData();
-//                },
-//                child: Container(
-//                  decoration: BoxDecoration(
-//                    shape: BoxShape.circle,
-//                    color: Styles.WHITE_COLOR,
-//                  ),
-//                  padding: EdgeInsets.all(5),
-//                  child: Center(
-//                    child: Icon(
-//                      Icons.refresh,
-//                      size: 20,
-//                      color: Styles.BLUE_COLOR,
-//                    ),
-//                  ),
-//                ),
-//              ),
-              SizedBox(
-                width: 20.0,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              width: 20.0,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  _navigateToSearchPage() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SearchPage()));
   }
 }

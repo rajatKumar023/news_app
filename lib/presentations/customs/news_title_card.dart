@@ -31,6 +31,12 @@ class NewsTitleCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),
                 ),
+                border: Border.all(
+                  color: headline.urlToImage == null
+                      ? Styles.RED_COLOR
+                      : Styles.BLACK_COLOR,
+                  width: headline.urlToImage == null ? 2 : 0,
+                ),
                 color: Styles.BLACK_COLOR,
               ),
               constraints: BoxConstraints(
@@ -47,7 +53,13 @@ class NewsTitleCard extends StatelessWidget {
                         fit: BoxFit.fitWidth,
                       )
                     : Center(
-                        child: Text('T'),
+                        child: Text(
+                          'Failed to load image!!!',
+                          style: TextStyle(
+                            color: Styles.WHITE_COLOR,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
               ),
             ),

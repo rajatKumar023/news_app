@@ -23,6 +23,7 @@ abstract class _TechnologyStore with Store {
           'from': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'sortBy': 'publishedAt',
           'page': 1,
+          'language': 'en',
         });
         fetchTechnologyNewsComplete(headlines);
       }

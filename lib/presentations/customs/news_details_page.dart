@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/headlines.dart';
+import 'package:news_app/utils/string_value.dart';
 import 'package:news_app/utils/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +18,7 @@ class NewsDetailsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Styles.BLACK_COLOR,
+          color: Styles.BLACK_COLOR.withOpacity(0.8),
           height: screenHeight,
           width: screenWidth,
           child: SingleChildScrollView(
@@ -26,13 +27,25 @@ class NewsDetailsPage extends StatelessWidget {
                 Stack(
                   children: <Widget>[
                     Container(
-                      constraints:
-                          BoxConstraints(minHeight: screenHeight * 0.3),
+                      constraints: BoxConstraints(
+                        minHeight: screenHeight * 0.3,
+                        minWidth: MediaQuery.of(context).size.width,
+                      ),
                       child: ClipPath(
-                        child: Image.network(
-                          headlines.urlToImage,
-                          fit: BoxFit.fitWidth,
-                        ),
+                        child: headlines.urlToImage == null
+                            ? Center(
+                                child: Text(
+                                  'Failed to load image!!!',
+                                  style: TextStyle(
+                                    color: Styles.WHITE_COLOR,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            : Image.network(
+                                headlines.urlToImage,
+                                fit: BoxFit.fitWidth,
+                              ),
                       ),
                     ),
                     Positioned(
@@ -81,7 +94,7 @@ class NewsDetailsPage extends StatelessWidget {
                         height: 15.0,
                       ),
                       Text(
-                        'Description',
+                        StringValue.DESCRIPTION,
                         style: TextStyle(
                           fontSize: 18,
                           color: Styles.BLUE_COLOR,
@@ -102,7 +115,7 @@ class NewsDetailsPage extends StatelessWidget {
                         height: 15.0,
                       ),
                       Text(
-                        'More Info',
+                        StringValue.MORE_INFO,
                         style: TextStyle(
                           fontSize: 18,
                           color: Styles.BLUE_COLOR,
@@ -123,7 +136,7 @@ class NewsDetailsPage extends StatelessWidget {
                         height: 15.0,
                       ),
                       Text(
-                        'Full Info At',
+                        StringValue.FULL_INFO_AT,
                         style: TextStyle(
                           fontSize: 18,
                           color: Styles.BLUE_COLOR,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/presentations/customs/news_details_page.dart';
 import 'package:news_app/presentations/customs/news_title_card.dart';
 import 'package:news_app/presentations/customs/scroll_button.dart';
 import 'package:news_app/presentations/customs/store_observer.dart';
 import 'package:news_app/stores/headlines_store.dart';
+import 'package:news_app/utils/globals.dart';
+import 'package:news_app/utils/styles.dart';
 import 'package:provider/provider.dart';
-
-import 'file:///E:/Flutter%20Projects/news_app/lib/presentations/customs/news_details_page.dart';
 
 class TopHeadlinesTab extends StatefulWidget {
   @override
@@ -46,32 +47,37 @@ class _TopHeadlinesTabState extends State<TopHeadlinesTab> {
             return headlinesStore.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Styles.RED_COLOR),
                     ),
                   )
-                : ListView.builder(
-                    controller: controller,
-                    itemCount: headlinesStore.topHeadlines.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                          bottom: 20.0,
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => NewsDetailsPage(
-                                      headlines:
-                                          headlinesStore.topHeadlines[index],
-                                    )));
-                          },
-                          child: NewsTitleCard(
-                            headline: headlinesStore.topHeadlines[index],
-                          ),
-                        ),
+                : headlinesStore.topHeadlines.isEmpty
+                    ? Center(
+                        child: emptyPlaceholder,
+                      )
+                    : ListView.builder(
+                        controller: controller,
+                        itemCount: headlinesStore.topHeadlines.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.only(
+                              bottom: 20.0,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => NewsDetailsPage(
+                                          headlines: headlinesStore
+                                              .topHeadlines[index],
+                                        )));
+                              },
+                              child: NewsTitleCard(
+                                headline: headlinesStore.topHeadlines[index],
+                              ),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  );
           },
         ),
         showScrollButton

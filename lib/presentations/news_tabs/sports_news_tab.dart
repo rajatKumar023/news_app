@@ -4,6 +4,8 @@ import 'package:news_app/presentations/customs/news_title_card.dart';
 import 'package:news_app/presentations/customs/scroll_button.dart';
 import 'package:news_app/presentations/customs/store_observer.dart';
 import 'package:news_app/stores/sports_store.dart';
+import 'package:news_app/utils/globals.dart';
+import 'package:news_app/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class SportsNewsTab extends StatefulWidget {
@@ -45,9 +47,11 @@ class _SportsNewsTabState extends State<SportsNewsTab> {
             return sportsStore.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                      valueColor: AlwaysStoppedAnimation<Color>(Styles.RED_COLOR),
                     ),
                   )
+                : sportsStore.sportsHeadlines.isEmpty
+                ? Center(child: emptyPlaceholder)
                 : ListView.builder(
                     controller: controller,
                     itemCount: sportsStore.sportsHeadlines.length,

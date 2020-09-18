@@ -20,9 +20,10 @@ abstract class _SportsStore with Store {
         isLoading = true;
         List<Headlines> headlines = await everythingNewsService.getEveryNews({
           'q': 'sports',
-          'from': DateFormat('yyyy-mm-dd').format(DateTime.now()),
+          'from': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'sortBy': 'publishedAt',
           'page': 1,
+          'language': 'en',
         });
         fetchSportsNewsComplete(headlines);
       }

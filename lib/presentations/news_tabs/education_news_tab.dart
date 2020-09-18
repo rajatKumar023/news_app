@@ -4,6 +4,8 @@ import 'package:news_app/presentations/customs/news_title_card.dart';
 import 'package:news_app/presentations/customs/scroll_button.dart';
 import 'package:news_app/presentations/customs/store_observer.dart';
 import 'package:news_app/stores/education_store.dart';
+import 'package:news_app/utils/globals.dart';
+import 'package:news_app/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class EducationNewsTab extends StatefulWidget {
@@ -45,32 +47,36 @@ class _EducationNewsTabState extends State<EducationNewsTab> {
             return educationStore.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Styles.RED_COLOR),
                     ),
                   )
-                : ListView.builder(
-                    controller: controller,
-                    itemCount: educationStore.educationHeadlines.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                          bottom: 20.0,
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => NewsDetailsPage(
-                                      headlines: educationStore
-                                          .educationHeadlines[index],
-                                    )));
-                          },
-                          child: NewsTitleCard(
-                            headline: educationStore.educationHeadlines[index],
-                          ),
-                        ),
+                : educationStore.educationHeadlines.isEmpty
+                    ? Center(child: emptyPlaceholder)
+                    : ListView.builder(
+                        controller: controller,
+                        itemCount: educationStore.educationHeadlines.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.only(
+                              bottom: 20.0,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => NewsDetailsPage(
+                                          headlines: educationStore
+                                              .educationHeadlines[index],
+                                        )));
+                              },
+                              child: NewsTitleCard(
+                                headline:
+                                    educationStore.educationHeadlines[index],
+                              ),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  );
           },
         ),
         showScrollButton

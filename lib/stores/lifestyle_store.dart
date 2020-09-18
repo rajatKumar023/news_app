@@ -20,9 +20,10 @@ abstract class _LifeStyleStore with Store {
         isLoading = true;
         List<Headlines> headlines = await everythingNewsService.getEveryNews({
           'q': 'lifestyle',
-          'from': DateFormat('yyyy-mm-dd').format(DateTime.now()),
+          'from': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'sortBy': 'publishedAt',
           'page': 1,
+          'language': 'en',
         });
         fetchLifestyleNewsComplete(headlines);
       }
