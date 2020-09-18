@@ -31,9 +31,12 @@ class NewsTitleCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),
                 ),
-                color: Styles.WHITE_COLOR,
+                color: Styles.BLACK_COLOR,
               ),
-              constraints: BoxConstraints(minHeight: 200.0),
+              constraints: BoxConstraints(
+                minHeight: 200.0,
+                minWidth: MediaQuery.of(context).size.width,
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),

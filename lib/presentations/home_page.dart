@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:news_app/presentations/news_tabs/education_news_tab.dart';
+import 'package:news_app/presentations/news_tabs/entertainment_news_tab.dart';
+import 'package:news_app/presentations/news_tabs/lifestyle_news_tab.dart';
 import 'package:news_app/presentations/news_tabs/sports_news_tab.dart';
+import 'package:news_app/presentations/news_tabs/technology_news_tab.dart';
 import 'package:news_app/presentations/news_tabs/top_headlines_tab.dart';
 import 'package:news_app/utils/styles.dart';
 
@@ -54,16 +58,16 @@ class _HomePageState extends State<HomePage>
                     text: 'Sports',
                   ),
                   Tab(
-                    text: 'Top-Headlines',
+                    text: 'Education',
                   ),
                   Tab(
-                    text: 'Top-Headlines',
+                    text: 'Entertainment',
                   ),
                   Tab(
-                    text: 'Top-Headlines',
+                    text: 'Technology',
                   ),
                   Tab(
-                    text: 'Top-Headlines',
+                    text: 'Lifestyle',
                   ),
                 ],
               ),
@@ -78,10 +82,10 @@ class _HomePageState extends State<HomePage>
                     children: <Widget>[
                       TopHeadlinesTab(),
                       SportsNewsTab(),
-                      SizedBox(),
-                      SizedBox(),
-                      SizedBox(),
-                      SizedBox(),
+                      EducationNewsTab(),
+                      EntertainmentNewsTab(),
+                      TechnologyNewsTab(),
+                      LifestyleNewsTab(),
                     ],
                   ),
                 ),

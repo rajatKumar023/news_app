@@ -3,28 +3,28 @@ import 'package:mobx/mobx.dart';
 import 'package:news_app/models/headlines.dart';
 import 'package:news_app/utils/globals.dart';
 
-part 'sports_store.g.dart';
+part 'lifestyle_store.g.dart';
 
-class SportsStore = _SportsStore with _$SportsStore;
+class LifeStyleStore = _LifeStyleStore with _$LifeStyleStore;
 
-abstract class _SportsStore with Store {
-  ObservableList<Headlines> sportsHeadlines = ObservableList<Headlines>();
+abstract class _LifeStyleStore with Store {
+  ObservableList<Headlines> lifestyleHeadlines = ObservableList<Headlines>();
 
   @observable
   bool isLoading = false;
 
   @action
-  fetchSportsNews({bool force = false}) async {
+  fetchLifestyleNews({bool force = false}) async {
     try {
-      if (sportsHeadlines.isEmpty || force) {
+      if (lifestyleHeadlines.isEmpty || force) {
         isLoading = true;
         List<Headlines> headlines = await everythingNewsService.getEveryNews({
-          'q': 'sports',
+          'q': 'lifestyle',
           'from': DateFormat('yyyy-mm-dd').format(DateTime.now()),
           'sortBy': 'publishedAt',
           'page': 1,
         });
-        fetchSportsNewsComplete(headlines);
+        fetchLifestyleNewsComplete(headlines);
       }
     } catch (e) {
       print('error');
@@ -34,9 +34,9 @@ abstract class _SportsStore with Store {
   }
 
   @action
-  fetchSportsNewsComplete(List<Headlines> headlines) {
-    sportsHeadlines.clear();
-    sportsHeadlines.addAll(headlines);
+  fetchLifestyleNewsComplete(List<Headlines> headlines) {
+    lifestyleHeadlines.clear();
+    lifestyleHeadlines.addAll(headlines);
     isLoading = false;
   }
 }

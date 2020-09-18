@@ -3,15 +3,15 @@ import 'package:news_app/presentations/customs/news_details_page.dart';
 import 'package:news_app/presentations/customs/news_title_card.dart';
 import 'package:news_app/presentations/customs/scroll_button.dart';
 import 'package:news_app/presentations/customs/store_observer.dart';
-import 'package:news_app/stores/sports_store.dart';
+import 'package:news_app/stores/technology_store.dart';
 import 'package:provider/provider.dart';
 
-class SportsNewsTab extends StatefulWidget {
+class TechnologyNewsTab extends StatefulWidget {
   @override
-  _SportsNewsTabState createState() => _SportsNewsTabState();
+  _TechnologyNewsTabState createState() => _TechnologyNewsTabState();
 }
 
-class _SportsNewsTabState extends State<SportsNewsTab> {
+class _TechnologyNewsTabState extends State<TechnologyNewsTab> {
   ScrollController controller;
   bool showScrollButton;
 
@@ -40,9 +40,9 @@ class _SportsNewsTabState extends State<SportsNewsTab> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        StoreObserver<SportsStore>(
-          builder: (SportsStore sportsStore, BuildContext context) {
-            return sportsStore.isLoading
+        StoreObserver<TechnologyStore>(
+          builder: (TechnologyStore technologyStore, BuildContext context) {
+            return technologyStore.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
@@ -50,7 +50,7 @@ class _SportsNewsTabState extends State<SportsNewsTab> {
                   )
                 : ListView.builder(
                     controller: controller,
-                    itemCount: sportsStore.sportsHeadlines.length,
+                    itemCount: technologyStore.technologyHeadlines.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         margin: EdgeInsets.only(
@@ -60,12 +60,13 @@ class _SportsNewsTabState extends State<SportsNewsTab> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => NewsDetailsPage(
-                                      headlines:
-                                          sportsStore.sportsHeadlines[index],
+                                      headlines: technologyStore
+                                          .technologyHeadlines[index],
                                     )));
                           },
                           child: NewsTitleCard(
-                            headline: sportsStore.sportsHeadlines[index],
+                            headline:
+                                technologyStore.technologyHeadlines[index],
                           ),
                         ),
                       );
@@ -93,6 +94,6 @@ class _SportsNewsTabState extends State<SportsNewsTab> {
   }
 
   _getData() {
-    Provider.of<SportsStore>(context).fetchSportsNews();
+    Provider.of<TechnologyStore>(context).fetchTechnologyNews();
   }
 }

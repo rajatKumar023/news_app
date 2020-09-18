@@ -3,28 +3,28 @@ import 'package:mobx/mobx.dart';
 import 'package:news_app/models/headlines.dart';
 import 'package:news_app/utils/globals.dart';
 
-part 'sports_store.g.dart';
+part 'education_store.g.dart';
 
-class SportsStore = _SportsStore with _$SportsStore;
+class EducationStore = _EducationStore with _$EducationStore;
 
-abstract class _SportsStore with Store {
-  ObservableList<Headlines> sportsHeadlines = ObservableList<Headlines>();
+abstract class _EducationStore with Store {
+  ObservableList<Headlines> educationHeadlines = ObservableList<Headlines>();
 
   @observable
   bool isLoading = false;
 
   @action
-  fetchSportsNews({bool force = false}) async {
+  fetchEducationNews({bool force = false}) async {
     try {
-      if (sportsHeadlines.isEmpty || force) {
+      if (educationHeadlines.isEmpty || force) {
         isLoading = true;
         List<Headlines> headlines = await everythingNewsService.getEveryNews({
-          'q': 'sports',
+          'q': 'education',
           'from': DateFormat('yyyy-mm-dd').format(DateTime.now()),
           'sortBy': 'publishedAt',
           'page': 1,
         });
-        fetchSportsNewsComplete(headlines);
+        fetchEducationNewsComplete(headlines);
       }
     } catch (e) {
       print('error');
@@ -34,9 +34,9 @@ abstract class _SportsStore with Store {
   }
 
   @action
-  fetchSportsNewsComplete(List<Headlines> headlines) {
-    sportsHeadlines.clear();
-    sportsHeadlines.addAll(headlines);
+  fetchEducationNewsComplete(List<Headlines> headlines) {
+    educationHeadlines.clear();
+    educationHeadlines.addAll(headlines);
     isLoading = false;
   }
 }
