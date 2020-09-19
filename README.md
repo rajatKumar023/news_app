@@ -1,6 +1,6 @@
 # news_app
 
-A new Flutter application.
+A new Flutter application for getting daily news updates as per the categories like Top-Headlines, Sports, Entertainment, Education, Technology, Lifestyle and to search the news of your choice.
 
 | | | |
 | --- | --- | --- |
