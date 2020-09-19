@@ -34,12 +34,13 @@ class _TopHeadlinesTabState extends State<TopHeadlinesTab> {
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _getData();
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _getData();
     return Stack(
       children: <Widget>[
         StoreObserver<HeadlinesStore>(

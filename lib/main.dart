@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: GoogleFonts.sourceSansPro().fontFamily,
         ),
-        title: 'News',
+        title: 'Notify',
         home: HomePage(),
       ),
     );
